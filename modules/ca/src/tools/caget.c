@@ -226,7 +226,11 @@ static int caget (pv *pvs, int nPvs, RequestT request, OutputT format,
                                 /* Wait for completion */
                                 /* ------------------- */
 
+    clock_t start = clock();
     result = ca_pend_io(caTimeout);
+    clock_t end = clock();
+    double elapsed_ms = (double)(end - start) / CLOCKS_PER_SEC * 1000;
+    printf("Response time: %.3f ms\n", elapsed_ms);
     if (result == ECA_TIMEOUT)
         fprintf(stderr, "Read operation timed out: some PV data was not read.\n");
 
