@@ -22,7 +22,9 @@
 #include <string.h>
 #include <errno.h>
 #include <limits.h>
+#include <epicsTime.h>
 
+#include "perfLogger.h"
 #include "dbDefs.h"
 #include "ellLib.h"
 #include "envDefs.h"
@@ -109,6 +111,8 @@ enum iocStateEnum getIocState(void)
 int iocInit(void)
 {
     return iocBuild() || iocRun();
+    perf_logger_init();
+    perf_log("IOC initialization started");
 }
 
 static int iocBuild_1(void)
